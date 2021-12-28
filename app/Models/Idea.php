@@ -43,7 +43,7 @@ class Idea extends Model
         return $this->belongsTo(Status::class);
     }
 
-    public function votes()
+    public function votes(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(User::class, 'votes');
     }
@@ -51,13 +51,24 @@ class Idea extends Model
     public function getStatusClasses(): string
     {
         $allStatuses = [
-            'Open' => 'bg-gray-200',
+            'Open'        => 'bg-gray-200',
             'Considering' => 'bg-purple text-white',
             'In Progress' => 'bg-yellow text-white',
             'Implemented' => 'bg-green text-white',
-            'Closed' => 'bg-red text-white',
+            'Closed'      => 'bg-red text-white',
         ];
 
         return $allStatuses[$this->status->name] ?? 'bg-gray-200';
+    }
+
+    public function isVotedByUser(?User $user): bool
+    {
+        if ( ! $user) {
+            return false;
+        }
+
+        return Vote::where('user_id', $user->id)
+                   ->where('idea_id', $this->id)
+                   ->exists();
     }
 }

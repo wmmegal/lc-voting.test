@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Idea;
+use App\Models\Vote;
 use Illuminate\Http\Request;
 
 class IdeaController extends Controller
@@ -15,9 +16,9 @@ class IdeaController extends Controller
     {
         return view('idea.index', [
             'ideas' => Idea::with('user', 'category', 'status')
-                ->withCount('votes')
-                ->orderBy('id', 'desc')
-                ->simplePaginate(Idea::PAGINATION_COUNT),
+                           ->withCount('votes')
+                           ->orderBy('id', 'desc')
+                           ->simplePaginate(Idea::PAGINATION_COUNT),
         ]);
     }
 
@@ -35,6 +36,7 @@ class IdeaController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -50,7 +52,7 @@ class IdeaController extends Controller
     public function show(Idea $idea)
     {
         return view('idea.show', [
-            'idea' => $idea,
+            'idea'       => $idea,
             'votesCount' => $idea->votes()->count()
         ]);
     }
@@ -59,6 +61,7 @@ class IdeaController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Idea  $idea
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Idea $idea)
@@ -71,6 +74,7 @@ class IdeaController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Idea  $idea
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Idea $idea)
@@ -82,6 +86,7 @@ class IdeaController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Idea  $idea
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Idea $idea)
