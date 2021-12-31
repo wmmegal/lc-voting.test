@@ -51,11 +51,11 @@ class Idea extends Model
     public function getStatusClasses(): string
     {
         $allStatuses = [
-            'Open'        => 'bg-gray-200',
+            'Open' => 'bg-gray-200',
             'Considering' => 'bg-purple text-white',
             'In Progress' => 'bg-yellow text-white',
             'Implemented' => 'bg-green text-white',
-            'Closed'      => 'bg-red text-white',
+            'Closed' => 'bg-red text-white',
         ];
 
         return $allStatuses[$this->status->name] ?? 'bg-gray-200';
@@ -63,12 +63,28 @@ class Idea extends Model
 
     public function isVotedByUser(?User $user): bool
     {
-        if ( ! $user) {
+        if (!$user) {
             return false;
         }
 
         return Vote::where('user_id', $user->id)
-                   ->where('idea_id', $this->id)
-                   ->exists();
+            ->where('idea_id', $this->id)
+            ->exists();
+    }
+
+    public function vote(User $user)
+    {
+        Vote::create([
+            'idea_id' => $this->id,
+            'user_id' => $user->id,
+        ]);
+    }
+
+    public function removeVote(User $user)
+    {
+        Vote::where('idea_id', $this->id)
+            ->where('user_id', $user->id)
+            ->first()
+            ->delete();
     }
 }

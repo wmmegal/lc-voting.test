@@ -25,24 +25,26 @@
                         <div class="text-gray-900">3 Comments</div>
                     </div>
                     <div
-                            class="flex items-center space-x-2 mt-4 md:mt-0"
-                            x-data="{ isOpen: false }"
+                        class="flex items-center space-x-2 mt-4 md:mt-0"
+                        x-data="{ isOpen: false }"
                     >
-                        <div class="{{ $idea->getStatusClasses() }} text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 py-2 px-4">{{ $idea->status->name }}</div>
+                        <div
+                            class="{{ $idea->getStatusClasses() }} text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 py-2 px-4">{{ $idea->status->name }}</div>
                         <button
-                                class="relative bg-gray-100 hover:bg-gray-200 border rounded-full h-7 transition duration-150 ease-in py-2 px-3"
-                                @click="isOpen = !isOpen"
+                            class="relative bg-gray-100 hover:bg-gray-200 border rounded-full h-7 transition duration-150 ease-in py-2 px-3"
+                            @click="isOpen = !isOpen"
                         >
                             <svg fill="currentColor" width="24" height="6">
-                                <path d="M2.97.061A2.969 2.969 0 000 3.031 2.968 2.968 0 002.97 6a2.97 2.97 0 100-5.94zm9.184 0a2.97 2.97 0 100 5.939 2.97 2.97 0 100-5.939zm8.877 0a2.97 2.97 0 10-.003 5.94A2.97 2.97 0 0021.03.06z"
-                                      style="color: rgba(163, 163, 163, .5)">
+                                <path
+                                    d="M2.97.061A2.969 2.969 0 000 3.031 2.968 2.968 0 002.97 6a2.97 2.97 0 100-5.94zm9.184 0a2.97 2.97 0 100 5.939 2.97 2.97 0 100-5.939zm8.877 0a2.97 2.97 0 10-.003 5.94A2.97 2.97 0 0021.03.06z"
+                                    style="color: rgba(163, 163, 163, .5)">
                             </svg>
                             <ul
-                                    class="absolute w-44 text-left font-semibold bg-white shadow-dialog rounded-xl z-10 py-3 md:ml-8 top-8 md:top-6 right-0 md:left-0"
-                                    x-cloak
-                                    x-show.transition.origin.top.left="isOpen"
-                                    @click.away="isOpen = false"
-                                    @keydown.escape.window="isOpen = false"
+                                class="absolute w-44 text-left font-semibold bg-white shadow-dialog rounded-xl z-10 py-3 md:ml-8 top-8 md:top-6 right-0 md:left-0"
+                                x-cloak
+                                x-show.transition.origin.top.left="isOpen"
+                                @click.away="isOpen = false"
+                                @keydown.escape.window="isOpen = false"
                             >
                                 <li><a href="#"
                                        class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Mark as
@@ -56,18 +58,23 @@
 
                     <div class="flex items-center md:hidden mt-4 md:mt-0">
                         <div class="bg-gray-100 text-center rounded-xl h-10 px-4 py-2 pr-8">
-                            <div class="text-sm font-bold leading-none @if($hasVoted) text-blue @endif">{{ $votesCount }}</div>
+                            <div
+                                class="text-sm font-bold leading-none @if($hasVoted) text-blue @endif">{{ $votesCount }}</div>
                             <div class="text-xxs font-semibold leading-none text-gray-400">Votes</div>
                         </div>
                         @if ($hasVoted)
                             <button
-                                    class="w-20 bg-blue text-white border border-blue font-bold text-xxs uppercase rounded-xl hover:bg-blue-hover transition duration-150 ease-in px-4 py-3 -mx-5"
+                                type="button"
+                                wire:click="vote"
+                                class="w-20 bg-blue text-white border border-blue font-bold text-xxs uppercase rounded-xl hover:bg-blue-hover transition duration-150 ease-in px-4 py-3 -mx-5"
                             >
                                 Voted
                             </button>
                         @else
                             <button
-                                    class="w-20 bg-gray-200 border border-gray-200 font-bold text-xxs uppercase rounded-xl hover:border-gray-400 transition duration-150 ease-in px-4 py-3 -mx-5"
+                                type="button"
+                                wire:click="vote"
+                                class="w-20 bg-gray-200 border border-gray-200 font-bold text-xxs uppercase rounded-xl hover:border-gray-400 transition duration-150 ease-in px-4 py-3 -mx-5"
                             >
                                 Vote
                             </button>
@@ -81,22 +88,22 @@
     <div class="buttons-container flex items-center justify-between mt-6">
         <div class="flex flex-col md:flex-row items-center space-x-4 md:ml-6">
             <div
-                    x-data="{ isOpen: false }"
-                    class="relative"
+                x-data="{ isOpen: false }"
+                class="relative"
             >
                 <button
-                        type="button"
-                        @click="isOpen = !isOpen"
-                        class="flex items-center justify-center h-11 w-32 text-sm bg-blue text-white font-semibold rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3"
+                    type="button"
+                    @click="isOpen = !isOpen"
+                    class="flex items-center justify-center h-11 w-32 text-sm bg-blue text-white font-semibold rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3"
                 >
                     Reply
                 </button>
                 <div
-                        class="absolute z-10 w-64 md:w-104 text-left font-semibold text-sm bg-white shadow-dialog rounded-xl mt-2"
-                        x-cloak
-                        x-show.transition.origin.top.left="isOpen"
-                        @click.away="isOpen = false"
-                        @keydown.escape.window="isOpen = false"
+                    class="absolute z-10 w-64 md:w-104 text-left font-semibold text-sm bg-white shadow-dialog rounded-xl mt-2"
+                    x-cloak
+                    x-show.transition.origin.top.left="isOpen"
+                    @click.away="isOpen = false"
+                    @keydown.escape.window="isOpen = false"
                 >
                     <form action="#" class="space-y-4 px-4 py-6">
                         <div>
@@ -107,14 +114,14 @@
 
                         <div class="flex flex-col md:flex-row items-center md:space-x-3">
                             <button
-                                    type="button"
-                                    class="flex items-center justify-center h-11 w-full md:w-1/2 text-sm bg-blue text-white font-semibold rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3"
+                                type="button"
+                                class="flex items-center justify-center h-11 w-full md:w-1/2 text-sm bg-blue text-white font-semibold rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3"
                             >
                                 Post Comment
                             </button>
                             <button
-                                    type="button"
-                                    class="flex items-center justify-center w-full md:w-32 h-11 text-xs bg-gray-200 font-semibold rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3 mt-2 md:mt-0"
+                                type="button"
+                                class="flex items-center justify-center w-full md:w-32 h-11 text-xs bg-gray-200 font-semibold rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3 mt-2 md:mt-0"
                             >
                                 <svg class="text-gray-600 w-4 transform -rotate-45" fill="none" viewBox="0 0 24 24"
                                      stroke="currentColor">
@@ -129,13 +136,13 @@
                 </div>
             </div>
             <div
-                    class="relative"
-                    x-data="{ isOpen: false }"
+                class="relative"
+                x-data="{ isOpen: false }"
             >
                 <button
-                        type="button"
-                        @click="isOpen = !isOpen"
-                        class="flex items-center justify-center w-36 h-11 text-sm bg-gray-200 font-semibold rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3 mt-2 md:mt-0"
+                    type="button"
+                    @click="isOpen = !isOpen"
+                    class="flex items-center justify-center w-36 h-11 text-sm bg-gray-200 font-semibold rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3 mt-2 md:mt-0"
                 >
                     <span>Set Status</span>
                     <svg class="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -143,11 +150,11 @@
                     </svg>
                 </button>
                 <div
-                        x-cloak
-                        x-show.transition.origin.top.left="isOpen"
-                        @click.away="isOpen = false"
-                        @keydown.escape.window="isOpen = false"
-                        class="absolute z-20 w-64 md:w-76 text-left font-semibold text-sm bg-white shadow-dialog rounded-xl mt-2"
+                    x-cloak
+                    x-show.transition.origin.top.left="isOpen"
+                    @click.away="isOpen = false"
+                    @keydown.escape.window="isOpen = false"
+                    class="absolute z-20 w-64 md:w-76 text-left font-semibold text-sm bg-white shadow-dialog rounded-xl mt-2"
                 >
                     <form action="#" class="space-y-4 px-4 py-6">
                         <div class="space-y-2">
@@ -196,8 +203,8 @@
 
                         <div class="flex items-center justify-between space-x-3">
                             <button
-                                    type="button"
-                                    class="flex items-center justify-center w-1/2 h-11 text-xs bg-gray-200 font-semibold rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3"
+                                type="button"
+                                class="flex items-center justify-center w-1/2 h-11 text-xs bg-gray-200 font-semibold rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3"
                             >
                                 <svg class="text-gray-600 w-4 transform -rotate-45" fill="none" viewBox="0 0 24 24"
                                      stroke="currentColor">
@@ -207,8 +214,8 @@
                                 <span class="ml-1">Attach</span>
                             </button>
                             <button
-                                    type="submit"
-                                    class="flex items-center justify-center w-1/2 h-11 text-xs bg-blue text-white font-semibold rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3"
+                                type="submit"
+                                class="flex items-center justify-center w-1/2 h-11 text-xs bg-blue text-white font-semibold rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3"
                             >
                                 <span class="ml-1">Update</span>
                             </button>
@@ -232,15 +239,17 @@
             </div>
             @if ($hasVoted)
                 <button
-                        type="button"
-                        class="w-32 h-11 text-xs bg-blue text-white font-semibold uppercase rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3"
+                    type="button"
+                    wire:click="vote"
+                    class="w-32 h-11 text-xs bg-blue text-white font-semibold uppercase rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3"
                 >
                     <span>Voted</span>
                 </button>
             @else
                 <button
-                        type="button"
-                        class="w-32 h-11 text-xs bg-gray-200 font-semibold uppercase rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3"
+                    type="button"
+                    wire:click="vote"
+                    class="w-32 h-11 text-xs bg-gray-200 font-semibold uppercase rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3"
                 >
                     <span>Vote</span>
                 </button>
