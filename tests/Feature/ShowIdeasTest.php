@@ -76,7 +76,7 @@ class ShowIdeasTest extends TestCase
         $response->assertSee($idea->title);
         $response->assertSee($idea->description);
         $response->assertSee($categoryOne->name);
-        $response->assertSee('<div class="bg-gray-200 text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 py-2 px-4">Open</div>',
+        $response->assertSee('Open',
             false);
     }
 
@@ -85,16 +85,22 @@ class ShowIdeasTest extends TestCase
         $user = User::factory()->create();
 
         $categoryOne = Category::factory()->create(['name' => 'Category 1']);
+
         $statusOpen = Status::factory()->create(['name' => 'Open']);
 
         Idea::factory(Idea::PAGINATION_COUNT + 1)->create([
             'user_id' => $user->id,
             'category_id' => $categoryOne->id,
-            'status_id' => $statusOpen->id
+            'status_id' => $statusOpen->id,
         ]);
 
         $ideaOne = Idea::find(1);
+        $ideaOne->title = 'My First Idea';
+        $ideaOne->save();
+
         $ideaEleven = Idea::find(11);
+        $ideaEleven->title = 'My Eleventh Idea';
+        $ideaEleven->save();
 
         $response = $this->get('/');
 
