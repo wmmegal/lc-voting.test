@@ -8,30 +8,30 @@ use Route;
 
 class StatusFilters extends Component
 {
-    public string $status = 'All';
+    public string $status;
     public array $statusCount;
 
-    protected $queryString = [
-        'status'
-    ];
 
     public function mount()
     {
         $this->statusCount = Status::getCount();
+        $this->status = request()->status ?? 'All';
 
         if (Route::currentRouteName() == 'idea.show') {
             $this->status = '';
-            $this->queryString = [];
         }
     }
 
     public function setStatus($newStatus)
     {
         $this->status = $newStatus;
+        $this->emit('queryStringUpdatedStatus', $this->status);
 
-        return redirect()->route('idea.index', [
-            'status' => $this->status
-        ]);
+        if ($this->getPreviousRouteName() === 'idea.show') {
+            return redirect()->route('idea.index', [
+                'status' => $this->status,
+            ]);
+        }
     }
 
     public function render()
