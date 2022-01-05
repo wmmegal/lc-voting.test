@@ -9,14 +9,15 @@
             </select>
         </div>
         <div class="w-full md:w-1/3">
-            <select wire:model="filter" name="other_filters" id="other_filters" class="w-full rounded-xl border-none px-4 py-2">
+            <select wire:model="filter" name="other_filters" id="other_filters"
+                    class="w-full rounded-xl border-none px-4 py-2">
                 <option value="No filters">No filters</option>
                 <option value="Top voted">Top voted</option>
                 <option value="My ideas">My ideas</option>
             </select>
         </div>
         <div class="w-full md:w-2/3 relative">
-            <input type="search" placeholder="Find an idea"
+            <input wire:model="search" type="search" placeholder="Find an idea"
                    class="w-full rounded-xl bg-white border-none placeholder-gray-900 px-4 py-2 pl-8">
             <div class="absolute top-0 flex itmes-center h-full ml-2">
                 <svg class="w-4 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -28,12 +29,16 @@
     </div> <!-- end filters -->
 
     <div class="ideas-container space-y-6 my-8">
-        @foreach ($ideas as $idea)
+        @forelse ($ideas as $idea)
             <livewire:idea-index
                 :key="$idea->id"
                 :idea="$idea"
-                :votesCount="$idea->votes_count" />
-        @endforeach
+                :votesCount="$idea->votes_count"/>
+        @empty
+            <div>
+                No ideas were found...
+            </div>
+        @endforelse
     </div> <!-- end ideas-container -->
 
     <div class="my-8">
