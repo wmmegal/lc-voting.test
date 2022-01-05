@@ -61,4 +61,9 @@ class User extends Authenticatable {
 		       . $integerToUse
 		       . '.png';
 	}
+
+    public function isAdmin()
+    {
+        return $this->email == 'test@email.com';
+    }
 }
