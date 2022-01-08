@@ -23,17 +23,8 @@ class AdminSetStatusTest extends TestCase
             'email' => 'test@email.com',
         ]);
 
-        $categoryOne = Category::factory()->create(['name' => 'Category 1']);
-        $categoryTwo = Category::factory()->create(['name' => 'Category 2']);
-
-        $statusOpen = Status::factory()->create(['name' => 'Open']);
-
         $idea = Idea::factory()->create([
             'user_id' => $user->id,
-            'category_id' => $categoryOne->id,
-            'status_id' => $statusOpen->id,
-            'title' => 'My First Idea',
-            'description' => 'Description for my first idea',
         ]);
 
         $this->actingAs($user)
@@ -47,17 +38,8 @@ class AdminSetStatusTest extends TestCase
             'email' => 'user@user.com',
         ]);
 
-        $categoryOne = Category::factory()->create(['name' => 'Category 1']);
-        $categoryTwo = Category::factory()->create(['name' => 'Category 2']);
-
-        $statusOpen = Status::factory()->create(['name' => 'Open']);
-
         $idea = Idea::factory()->create([
             'user_id' => $user->id,
-            'category_id' => $categoryOne->id,
-            'status_id' => $statusOpen->id,
-            'title' => 'My First Idea',
-            'description' => 'Description for my first idea',
         ]);
 
         $this->actingAs($user)
@@ -71,17 +53,11 @@ class AdminSetStatusTest extends TestCase
             'email' => 'test@email.com',
         ]);
 
-        $categoryOne = Category::factory()->create(['name' => 'Category 1']);
-        $categoryTwo = Category::factory()->create(['name' => 'Category 2']);
-
         $statusConsidering = Status::factory()->create(['id' => 2, 'name' => 'Considering']);
 
         $idea = Idea::factory()->create([
             'user_id' => $user->id,
-            'category_id' => $categoryOne->id,
             'status_id' => $statusConsidering->id,
-            'title' => 'My First Idea',
-            'description' => 'Description for my first idea',
         ]);
 
         Livewire::actingAs($user)
@@ -96,19 +72,11 @@ class AdminSetStatusTest extends TestCase
         $user = User::factory()->create([
             'email' => 'test@email.com',
         ]);
-
-        $categoryOne = Category::factory()->create(['name' => 'Category 1']);
-        $categoryTwo = Category::factory()->create(['name' => 'Category 2']);
-
-        $statusConsidering = Status::factory()->create(['id' => 2, 'name' => 'Considering']);
+        
         $statusInProgress = Status::factory()->create(['id' => 3, 'name' => 'In Progress']);
 
         $idea = Idea::factory()->create([
             'user_id' => $user->id,
-            'category_id' => $categoryOne->id,
-            'status_id' => $statusConsidering->id,
-            'title' => 'My First Idea',
-            'description' => 'Description for my first idea',
         ]);
 
         Livewire::actingAs($user)
@@ -131,17 +99,10 @@ class AdminSetStatusTest extends TestCase
             'email' => 'test@email.com',
         ]);
 
-        $categoryOne = Category::factory()->create(['name' => 'Category 1']);
-
-        $statusConsidering = Status::factory()->create(['id' => 2, 'name' => 'Considering']);
         $statusInProgress = Status::factory()->create(['id' => 3, 'name' => 'In Progress']);
 
         $idea = Idea::factory()->create([
             'user_id' => $user->id,
-            'category_id' => $categoryOne->id,
-            'status_id' => $statusConsidering->id,
-            'title' => 'My First Idea',
-            'description' => 'Description for my first idea',
         ]);
 
         Queue::fake();
