@@ -11,7 +11,10 @@ class IdeaShow extends Component
     public int $votesCount;
     public bool $hasVoted;
 
-    protected $listeners = ['statusWasUpdated'];
+    protected $listeners = [
+        'statusWasUpdated' => 'ideaRefresh',
+        'ideaWasUpdated' => 'ideaRefresh',
+    ];
 
     public function mount(Idea $idea, $votesCount)
     {
@@ -20,7 +23,7 @@ class IdeaShow extends Component
         $this->hasVoted = $idea->isVotedByUser(auth()->user());
     }
 
-    public function statusWasUpdated()
+    public function ideaRefresh()
     {
         $this->idea->refresh();
     }
