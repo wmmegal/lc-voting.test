@@ -11,7 +11,7 @@ class MarkIdeaAsNotSpam extends Component
 
     public function markAsNotSpam()
     {
-        if (!auth()->user()->isAdmin()) {
+        if (auth()->guest() || !auth()->user()->isAdmin()) {
             abort(403);
         }
 
