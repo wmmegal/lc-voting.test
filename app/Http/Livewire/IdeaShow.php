@@ -14,6 +14,8 @@ class IdeaShow extends Component
     protected $listeners = [
         'statusWasUpdated' => 'ideaRefresh',
         'ideaWasUpdated' => 'ideaRefresh',
+        'ideaWasMarkedAsSpam' => 'ideaRefresh',
+        'ideaWasMarkedAsNotSpam' => 'ideaRefresh',
     ];
 
     public function mount(Idea $idea, $votesCount)

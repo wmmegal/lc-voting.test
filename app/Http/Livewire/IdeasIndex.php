@@ -74,6 +74,9 @@ class IdeasIndex extends Component
                 ->when($this->filter === 'Top voted', function ($query) {
                     return $query->orderByDesc('votes_count');
                 })
+                ->when($this->filter === 'Spam Ideas', function ($query) {
+                    return $query->where('spam_reports', '>', 0)->orderByDesc('votes_count');
+                })
                 ->when($this->filter === 'My ideas', function ($query) {
                     return $query->where('user_id', auth()->id());
                 })
