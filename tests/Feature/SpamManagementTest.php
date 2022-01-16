@@ -32,7 +32,6 @@ class SpamManagementTest extends TestCase
 
     public function test_does_not_show_mark_idea_as_spam_livewire_component_when_user_does_not_have_authorization()
     {
-        $user = User::factory()->create();
         $idea = Idea::factory()->create();
 
         $this->get(route('idea.show', $idea))
