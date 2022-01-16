@@ -34,7 +34,7 @@ class SetStatus extends Component
         $this->idea->status_id = $this->status;
         $this->idea->save();
 
-        $this->emit('statusWasUpdated');
+        $this->emit('statusWasUpdated', 'Status was updated successfully!');
     }
 
 
