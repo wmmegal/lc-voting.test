@@ -8,6 +8,12 @@ use Livewire\Component;
 class IdeaComments extends Component
 {
     public Idea $idea;
+    protected $listeners = ['commentWasAdded'];
+
+    public function commentWasAdded()
+    {
+        $this->idea->refresh();
+    }
 
     public function render()
     {
