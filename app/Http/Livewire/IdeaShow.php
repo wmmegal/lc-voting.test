@@ -17,6 +17,7 @@ class IdeaShow extends Component
         'ideaWasMarkedAsSpam' => 'ideaRefresh',
         'ideaWasMarkedAsNotSpam' => 'ideaRefresh',
         'commentWasAdded' => 'ideaRefresh',
+        'commentWasDeleted' => 'ideaRefresh',
     ];
 
     public function mount(Idea $idea, $votesCount)
